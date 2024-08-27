@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Success</title>
+{% endblock %}    
+
+{% block body %}
+    <h1>User Creation has been a Success!</h1>
+    <h2>The Name is {{student_name}}</h2>
+    <h2>The Student Email is {{student_email}}</h2>
+    <form action="{{url_for('index')}}">
+        <p><input class = "form-submit" type="submit" value="Go to Home"/></p>
+    </form>
+{% endblock %}

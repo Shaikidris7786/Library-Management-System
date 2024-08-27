@@ -21,3 +21,14 @@ body {
         box-shadow: 5px 5px 5px #2a2e35;
     }
 }
+
+.input-control {
+    font-size: inherit;
+    border-radius: 15px;
+    padding: .6rem .8rem;
+    margin: .1rem 0;
+    width: 40%;
+    background-color: #2a2e35;
+    box-shadow: 5px 5px 5px #eee;
+    color: #fff;
+}

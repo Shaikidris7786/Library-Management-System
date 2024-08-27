@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Librarian</title>
+    <title>Student</title>
 {% endblock %}    
 
 {% block body %}
-    <h1>Welcome Librarian</h1>
+    <h1>Welcome Student</h1>
     <h2>
-        What actions would you like to perform
+        Are you present in the system?
     </h2>
     <form action="#" method="post">
-        <p><input class = "form-submit" type="submit" value="Check-out Book" name="Check-out Book"/></p>
-        <p><input class = "form-submit" type="submit" value="Return Book" name="Return Book"/></p>
+        <p><input class = "form-submit" type="submit" value="Register" name="Register-New-Student"/></p>
+        <p><input class = "form-submit" type="submit" value="Login" name="Login-Existing-Student"/></p>
     </form>
 
     <form style="margin-top: 5rem" action="{{url_for('index')}}">
