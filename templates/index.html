@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Main Page</title>
+{% endblock %}    
+
+{% block body %}
+    <h1>Navigation Page!</h1>
+    <h2>
+        Welcome to Library Management System -
+        <br>
+        Please choose your Role Below:
+    </h2>
+    <form action="#" method="post">
+        <p><input class = "form-submit" type="submit" value="Librarian" name="Librarian-submit"/></p>
+        <p><input class = "form-submit" type="submit" value="Student" name="Student-submit"/></p>
+    </form>
+{% endblock %}
