@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Student's Corner</title>
+{% endblock %}    
+
+{% block body %}
+    <h1>Hey {{UserName}}</h1>
+    <h2>
+        Welcome to Library Management System -
+        <br>
+        What do you want to do? 
+    </h2>
+    <form action="#" method="post">
+        <p><input class = "form-submit" type="submit" value="Search Books" name="Search-Books"/></p>
+        <p><input class = "form-submit" type="submit" value="Return Book" name="Return-Book"/></p>
+    </form>
+{% endblock %}

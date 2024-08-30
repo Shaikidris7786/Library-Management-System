@@ -51,6 +51,13 @@ def Librarian_Landingpage(User_Name):
         return render_template('librarian.html')
     
 
+# ----- BOOK TABLE -----
+
+@app.route('/Books',methods = ['POST','GET'])
+def search_books():
+    return render_template("Book/Book-View.html")
+
+
 # ----- EVERYTHING RELATED TO STUDENTS -----
 
 # ----- STUDENT LOGIN / REGISTER -----
@@ -76,15 +83,14 @@ def student_register():
         else:
             return redirect(url_for("Error"))
     else:    
-        return render_template("Student-Register.html")
+        return render_template("Student/Student-Register.html")
     
 # ----- STUDENT REGISTER SUCCESS -----    
 @app.route('/Student/Register/Success', methods = ['POST','GET'])
 def student_success_register():
     stud_name = request.args.get('stud_name',None)
     stud_email = request.args.get('stud_email',None)
-    print(stud_email,stud_name)
-    return render_template("Student-Register-Success.html",student_email = stud_email,student_name = stud_name)
+    return render_template("Student/Student-Register-Success.html",student_email = stud_email,student_name = stud_name)
 
 # ----- STUDENT LOGIN PAGE -----
 @app.route('/Student/Login', methods = ['POST', 'GET'])
@@ -93,13 +99,19 @@ def student_Login():
         stud_name = request.form['Student-Name']
         stud_email = request.form['Student-Email']
         if verify_user(stud_email,stud_name,"Student_details.csv") == True:
+            print("User verified, existing in DB.")
             return redirect(url_for("Student_landingpage",User_Name = stud_name))
-    return render_template("student-Login.html")
+    return render_template("Student/student-Login.html")
 
 # ----- STUDENT LANDING PAGE -----
 @app.route('/Student/<User_Name>', methods = ['POST', 'GET'])
 def Student_landingpage(User_Name):
-    return render_template('student-Landing.html',UserName = User_Name)
+    if request.method == 'POST':
+        if request.form.get("Search-Books"):
+            return redirect(url_for("search_books"))
+        if request.form.get("Return-Book"):
+            return redirect(url_for("return_book"))
+    return render_template('Student/student-Landing.html',UserName = User_Name)
 
 if __name__ == '__main__':
     app.run(debug=True)
