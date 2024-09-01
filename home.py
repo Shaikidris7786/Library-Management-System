@@ -12,7 +12,7 @@ def Register_user_function(User_email,User_name,FileName):
         if User_name not in unique_Name:
             user_tab.writelines(f'{User_name},{User_email}\n')
         elif User_name in unique_Name:
-            return redirect(url_for("Student_landingpage",User_Name = User_name))
+            return False
     return True
 
 # ----- VERIFY if a Student / Librarian based on the FILE called during INVOKE
@@ -23,7 +23,7 @@ def verify_user(User_email,User_name,FileName):
         if check_string in dataList:
             return True
         else:
-            return redirect(url_for("Register_Yourself_post_login"))
+            return False
 
 app = Flask(__name__)
 
@@ -74,6 +74,9 @@ def Student():
 # ----- STUDENT REGISTRATION PAGE -----
 @app.route('/Student/Register',methods = ['POST','GET'])
 def student_register():
+    error = ''
+    if "error_msg" in request.args:
+        error = request.args.get('error_msg',None)
     if request.method == 'POST':
         student_name = request.form['Student-Name']
         student_email = request.form['Student-Email']
@@ -81,9 +84,9 @@ def student_register():
         if Register_user_function(student_email,student_name,"Student_details.csv") == True:
             return redirect(url_for("student_success_register",stud_email = student_email, stud_name = student_name))
         else:
-            return redirect(url_for("Error"))
+            return redirect(url_for("Student_landingpage",User_Name = student_name))
     else:    
-        return render_template("Student/Student-Register.html")
+        return render_template("Student/Student-Register.html",error_msg = error)
     
 # ----- STUDENT REGISTER SUCCESS -----    
 @app.route('/Student/Register/Success', methods = ['POST','GET'])
@@ -101,6 +104,8 @@ def student_Login():
         if verify_user(stud_email,stud_name,"Student_details.csv") == True:
             print("User verified, existing in DB.")
             return redirect(url_for("Student_landingpage",User_Name = stud_name))
+        else:
+            return redirect(url_for("student_register",error_msg = 'No User Found'))
     return render_template("Student/student-Login.html")
 
 # ----- STUDENT LANDING PAGE -----
